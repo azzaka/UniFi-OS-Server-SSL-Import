@@ -6,11 +6,15 @@
 ############################################################################################
 
 # Domain Name:
-UNIFI_HOSTNAME="unifi.example.com"
+UNIFI_HOSTNAME="unifi.rippleffect.com"
+
+# Scripr version/name:
+SCRIPT_NAME="unifi-cert-import"
+SCRIPT_VERSION="1.0.0"
 
 # Certbot paths:
 CERTBOT_CONFIG_DIR="/etc/letsencrypt"
-CLOUDFLARE_CREDENTIALS="/etc/letsencrypt/cloudflare.ini"
+CLOUDFLARE_CREDENTIALS="/root/.secrets/cloudflare.ini"
 
 # UniFi OS Server certificate destination:
 UNIFI_CERT_DIR="/home/uosserver/.local/share/containers/storage/volumes/uosserver_data/_data/unifi-core/config"
@@ -29,7 +33,8 @@ VERBOSE=false
 
 # Logging Mode:
 LOGGING=true
-LOGFILE="/var/log/unifi-os-server-ssl-import.log"
+#LOGFILE="/var/log/unifi-os-server-ssl-import.log"
+LOGFILE="/var/log/scripts/unifi-cert-import.log"
 
 ############################################################################################
 
@@ -80,14 +85,15 @@ fail() {
     exit 1
 }
 
-echo "=============================="
-echo " UniFi OS SSL Import Script"
+echo "========================================"
+echo " ${SCRIPT_NAME} v${SCRIPT_VERSION}"
+echo "========================================"
 echo " Run at: $(date)"
 echo " Hostname: ${UNIFI_HOSTNAME}"
-echo " Certbot DNS Provider: Cloudflare"
+echo " DNS Provider: ${DNS_PROVIDER}"
 echo " Certbot renew: ${RUN_CERTBOT_RENEW}"
 echo " Logging: ${LOGGING}"
-echo "=============================="
+echo "========================================"
 
 [[ "$EUID" -eq 0 ]] || fail "This script must be run as root."
 

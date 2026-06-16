@@ -88,6 +88,7 @@ fail() {
 echo "========================================"
 echo " ${SCRIPT_NAME} v${SCRIPT_VERSION}"
 echo "========================================"
+echo " Server: $(hostname -f)"
 echo " Run at: $(date)"
 echo " Hostname: ${UNIFI_HOSTNAME}"
 echo " DNS Provider: ${DNS_PROVIDER}"
